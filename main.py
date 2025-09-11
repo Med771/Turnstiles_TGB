@@ -2,9 +2,9 @@ import asyncio
 
 from config import TelegramConfig
 
-from tools import LoggerTools
-
 from module import routers
+
+from tools.logger import LoggerTools
 
 BOT = TelegramConfig.BOT
 DISPATCHER = TelegramConfig.DISPATCHER
