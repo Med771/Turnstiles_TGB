@@ -1,2 +1,5 @@
-from module import menu
-from module import users
+from module.menu.router import menu_router
+
+routers = (
+    menu_router,
+)
