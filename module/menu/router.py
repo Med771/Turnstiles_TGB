@@ -3,15 +3,13 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, CallbackQuery
 from aiogram.filters import Command
 
-from addons import MainFilter
-
 from module.menu.filter import MenuFilter
 from module.menu.service import MenuService
 
 menu_router = Router(name="menu_router")
 
 
-@menu_router.message(Command(commands=["start"]), MainFilter.is_admin)
+@menu_router.message(Command(commands=["start"]))
 async def start_cmd(message: Message, state: FSMContext):
     await MenuService.start_cmd(message, state)
 

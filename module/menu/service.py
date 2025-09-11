@@ -1,7 +1,7 @@
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, CallbackQuery
 
-from tools import AdminTools
+from tools.admin import AdminTools
 
 from addons.markup import MenuMarkup
 from addons.decorator import TelegramDecorator
@@ -26,9 +26,13 @@ class MenuService:
     @staticmethod
     @TelegramDecorator.log_call(prefix="MenuService.back_btn")
     async def back_btn(message: Message, state: FSMContext):
+        await AdminTools.edit_reply(message)
+
         await MenuService.start_cmd(message, state)
 
     @staticmethod
     @TelegramDecorator.log_call(prefix="MenuService.back_btn_query")
     async def back_btn_query(call: CallbackQuery, state: FSMContext):
+        await AdminTools.edit_reply(call.message)
+
         await MenuService.start_cmd(call.message, state)
