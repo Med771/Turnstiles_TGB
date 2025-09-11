@@ -3,6 +3,8 @@ import os
 from dotenv import load_dotenv
 
 from aiogram import Bot, Dispatcher
+from aiogram.enums import ParseMode
+from aiogram.client.default import DefaultBotProperties
 
 from config.main import MainConfig
 
@@ -21,7 +23,7 @@ class TelegramConfig:
         exit("OWNER_CHAT_ID environment variable not set")
 
     try:
-        BOT: Bot = Bot(token=TELEGRAM_BOT_API_TOKEN)
+        BOT: Bot = Bot(token=TELEGRAM_BOT_API_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.MARKDOWN))
         DISPATCHER: Dispatcher = Dispatcher()
     except Exception as e:
-        exit("Telegram Bot Telegram API Error")
+        exit(f"Telegram Bot Telegram API Error {e}")

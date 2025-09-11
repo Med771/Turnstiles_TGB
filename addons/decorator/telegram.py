@@ -4,7 +4,7 @@ import functools
 
 from aiogram.exceptions import TelegramAPIError, TelegramForbiddenError
 
-from tools import LoggerTools
+from tools.logger import LoggerTools
 
 logger = LoggerTools.get_logger(__name__, error=True)
 
