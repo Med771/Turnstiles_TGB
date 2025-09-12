@@ -11,7 +11,10 @@ class KeyboardLexicon:
     FIND_CALL: str = "find_user"
 
     OPEN: str = "✅ Открыть"
+    OPEN_CALL: str = "open_"
+
     CLOSE: str = "❌ Закрыть"
+    CLOSE_CALL: str = "close_"
 
     BACK: str = "🔙 Вернуться назад"
     BACK_CALL: str = "back"
@@ -39,19 +42,19 @@ class KeyboardLexicon:
     CLOSE_ALL_CALL: str = "close_all"
 
     EDIT_NAME: str = "🔁 Изменить ФИО"
-    EDIT_NAME_CALL: str = "edit_name"
+    EDIT_NAME_CALL: str = "edit_name_"
 
     EDIT_PHOTO: str = "🔁 Изменить фото"
-    EDIT_PHOTO_CALL: str = "edit_photo"
+    EDIT_PHOTO_CALL: str = "edit_photo_"
 
     EDIT_TYPE: str = "🔁 Изменить тип"
-    EDIT_TYPE_CALL: str = "edit_type"
+    EDIT_TYPE_CALL: str = "edit_type_"
 
     EDIT_DATE: str = "🔁 Изменить срок действия"
-    EDIT_DATE_CALL: str = "edit_date"
+    EDIT_DATE_CALL: str = "edit_date_"
 
     DELETE: str = "❌ Удалить пользователя"
-    DELETE_CALL: str = "delete"
+    DELETE_CALL: str = "delete_"
 
     ADMIN: str = "👨‍💻 Администратор"
     EMPLOYEE: str = "💼 Сотрудник"
