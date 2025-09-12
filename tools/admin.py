@@ -1,4 +1,4 @@
-from aiogram.types import Message, ReplyKeyboardRemove
+from aiogram.types import Message
 
 from config import TelegramConfig
 
@@ -12,7 +12,7 @@ class AdminTools:
         await message.delete()
 
     @staticmethod
-    @TelegramDecorator.log_del(prefix="AdminTools.edit_reply")
+    @TelegramDecorator.log_call(prefix="AdminTools.edit_reply")
     async def edit_reply(message: Message):
         await message.edit_reply_markup(reply_markup=None)
 
