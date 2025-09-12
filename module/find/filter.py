@@ -19,6 +19,6 @@ class FindFilter:
     @staticmethod
     @TelegramDecorator.log_call(prefix="FindFilter.find_msg")
     async def find_msg(message: Message, state: FSMContext):
-        is_state = await state.get_state() == FindState.FIND
+        is_state = await MainFilter.get_state(state) == FindState.FIND
 
         return is_state and MainFilter.is_admin(msg=message)

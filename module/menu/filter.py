@@ -11,7 +11,7 @@ class MenuFilter:
     @staticmethod
     @TelegramDecorator.log_call(prefix="MenuFilter.back_btn")
     async def back_btn(message: Message, state: FSMContext) -> bool:
-        is_msg_text = message.text.lower() == KeyboardLexicon.BACK
+        is_msg_text = message.text == KeyboardLexicon.BACK
 
         return is_msg_text and MainFilter.is_admin(msg=message)
 
