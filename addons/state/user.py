@@ -19,3 +19,11 @@ class UserState(StatesGroup):
         ADD_PHOTO,
         ADD_TYPE,
         ADD_DATE)
+
+    EDIT_STATES: tuple = (
+        EDIT_NAME,
+        EDIT_PHOTO,
+        EDIT_TYPE,
+        EDIT_DATE,
+        USER
+    )

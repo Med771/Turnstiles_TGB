@@ -8,6 +8,8 @@ BACK_BTN = InlineKeyboardButton(
     callback_data=KeyboardLexicon.BACK_CALL,
 )
 
+SPEC_BACK_BTN = KeyboardButton(text=KeyboardLexicon.BACK)
+
 BACK_ADD_BTN = KeyboardButton(text=KeyboardLexicon.BACK)
 
 ADMIN_BTN = KeyboardButton(text=KeyboardLexicon.ADMIN)
@@ -26,6 +28,13 @@ class UserMarkup:
         keyboard=[[ADMIN_BTN], [EMPLOYEE_BTN], [STUDENT_BTN], [GUEST_BTN], [BACK_ADD_BTN]],
         resize_keyboard=True,
     )
+
+    spec_back_markup = ReplyKeyboardMarkup(
+            keyboard=[[
+                SPEC_BACK_BTN,
+            ]],
+            resize_keyboard=True,
+        )
 
     @staticmethod
     def get_user_markup(is_open: bool, uid: str):

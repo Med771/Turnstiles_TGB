@@ -26,6 +26,8 @@ class MenuService:
     @staticmethod
     @TelegramDecorator.log_call(prefix="MenuService.back_btn")
     async def back_btn(message: Message, state: FSMContext):
+        await state.clear()
+
         await AdminTools.edit_reply(message)
 
         await MenuService.start_cmd(message, state)
@@ -33,6 +35,8 @@ class MenuService:
     @staticmethod
     @TelegramDecorator.log_call(prefix="MenuService.back_btn_query")
     async def back_btn_query(call: CallbackQuery, state: FSMContext):
+        await state.clear()
+
         await AdminTools.edit_reply(call.message)
 
         await MenuService.start_cmd(call.message, state)
