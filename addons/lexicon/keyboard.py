@@ -18,6 +18,7 @@ class KeyboardLexicon:
 
     BACK: str = "🔙 Вернуться назад"
     BACK_CALL: str = "back"
+    SPEC_BACK_CALL: str = "spec_back_"
 
     OPEN_ADMINS: str = "✅ Открыть для администраторов"
     CLOSE_ADMINS: str = "❌ Закрыть для администраторов"
@@ -60,3 +61,10 @@ class KeyboardLexicon:
     EMPLOYEE: str = "💼 Сотрудник"
     STUDENT: str = "🎓 Студент"
     GUEST: str = "🧑‍💼 Гость"
+
+    TYPES: tuple = (
+        ADMIN,
+        EMPLOYEE,
+        STUDENT,
+        GUEST,
+    )

@@ -13,3 +13,9 @@ class UserState(StatesGroup):
     ADD_PHOTO = State(state="UserState.ADD_PHOTO")
     ADD_TYPE = State(state="UserState.ADD_TYPE")
     ADD_DATE = State(state="UserState.ADD_DATE")
+
+    ADD_STATES: tuple = (
+        ADD_NAME,
+        ADD_PHOTO,
+        ADD_TYPE,
+        ADD_DATE)

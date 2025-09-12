@@ -1,4 +1,4 @@
-from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup, KeyboardButton
 
 from addons.lexicon.keyboard import KeyboardLexicon
 
@@ -8,8 +8,25 @@ BACK_BTN = InlineKeyboardButton(
     callback_data=KeyboardLexicon.BACK_CALL,
 )
 
+BACK_ADD_BTN = KeyboardButton(text=KeyboardLexicon.BACK)
+
+ADMIN_BTN = KeyboardButton(text=KeyboardLexicon.ADMIN)
+EMPLOYEE_BTN = KeyboardButton(text=KeyboardLexicon.EMPLOYEE)
+STUDENT_BTN = KeyboardButton(text=KeyboardLexicon.STUDENT)
+GUEST_BTN = KeyboardButton(text=KeyboardLexicon.GUEST)
+
 
 class UserMarkup:
+    back_markup = ReplyKeyboardMarkup(
+        keyboard=[[BACK_ADD_BTN]],
+        resize_keyboard=True,
+    )
+
+    type_markup = ReplyKeyboardMarkup(
+        keyboard=[[ADMIN_BTN], [EMPLOYEE_BTN], [STUDENT_BTN], [GUEST_BTN], [BACK_ADD_BTN]],
+        resize_keyboard=True,
+    )
+
     @staticmethod
     def get_user_markup(is_open: bool, uid: str):
         EDIT_NAME_BTN = InlineKeyboardButton(

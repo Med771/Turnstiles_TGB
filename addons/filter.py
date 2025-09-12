@@ -1,3 +1,4 @@
+from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, CallbackQuery
 
 from config import TelegramConfig
@@ -20,3 +21,12 @@ class MainFilter:
         call_flag = call and str(call.message.chat.id) in TelegramConfig.ADMIN_CHAT_IDS
 
         return msg_flag or call_flag or MainFilter.is_owner(msg=msg, call=call)
+
+    @staticmethod
+    @TelegramDecorator.log_call(prefix="MainFilter.get_state")
+    async def get_state(state: FSMContext):
+        try:
+            return await state.get_state()
+
+        except Exception:
+            return ""
