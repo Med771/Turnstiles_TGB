@@ -3,6 +3,8 @@ from datetime import datetime
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery, Message, ReplyKeyboardRemove
 
+from utils import AddUtils
+
 from tools.admin import AdminTools
 
 from addons.markup import UserMarkup, MenuMarkup, EntryMarkup
@@ -100,21 +102,26 @@ class AddService:
 
         data = await state.get_data()
 
+        data["date"] = date
+
         msg = await message.answer(text=UserLexicon.DELETE_REPLY, reply_markup=ReplyKeyboardRemove())
 
         await AdminTools.delete_msg(msg)
 
         await state.clear()
 
-        resp = ("0",)
+        resp = await AddUtils.add_user(data)
 
-        text = UserLexicon.USER.format(full_name=data.get("full_name", ""),
-                                       type=data.get("type", ""),
-                                       end_time=message.text,
-                                       action=UserLexicon.OPEN if True else UserLexicon.CLOSE)
-        markup = UserMarkup.get_user_markup(is_open=True, uid=resp[0])
+        if resp:
+            text = UserLexicon.USER.format(full_name=data.get("full_name", ""),
+                                           type=data.get("type", ""),
+                                           end_time=message.text,
+                                           action=UserLexicon.OPEN if True else UserLexicon.CLOSE)
+            markup = UserMarkup.get_user_markup(is_open=True, uid=resp[0])
 
-        await message.answer(text=text, reply_markup=markup)
+            await message.answer(text=text, reply_markup=markup)
+        else:
+            await message.answer(text=UserLexicon.USER_NOT_CREATED, reply_markup=EntryMarkup.back_markup)
 
     @staticmethod
     @TelegramDecorator.log_call(prefix="AddService.open_close_btn")
@@ -123,12 +130,16 @@ class AddService:
 
         if KeyboardLexicon.OPEN_CALL in callback.data:
             action = "открыт"
+            is_open = False
         else:
             action = "закрыт"
+            is_open = True
 
-        resp = True
+        resp = await AddUtils.open_close(is_open)
 
         if resp:
-            await callback.message.answer(text=UserLexicon.ACTION_SUCCESS.format(action=action), reply_markup=EntryMarkup.back_markup)
+            await callback.message.answer(text=UserLexicon.ACTION_SUCCESS.format(action=action),
+                                          reply_markup=EntryMarkup.back_markup)
         else:
-            await callback.message.answer(text=UserLexicon.ACTION_SUCCESS.format(action=action), reply_markup=EntryMarkup.back_markup)
+            await callback.message.answer(text=UserLexicon.ACTION_ERROR.format(action=action),
+                                          reply_markup=EntryMarkup.back_markup)

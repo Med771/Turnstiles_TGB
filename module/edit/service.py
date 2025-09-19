@@ -1,7 +1,7 @@
-from datetime import datetime
-
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery, Message, ReplyKeyboardRemove
+
+from utils import EditUtils
 
 from tools.admin import AdminTools
 
@@ -17,11 +17,13 @@ class EditService:
     async def spec_back_btn(message: Message, state: FSMContext):
         data = await state.get_data()
 
+        await state.set_state(UserState.USER)
+
         msg = await message.answer(text=UserLexicon.DELETE_REPLY, reply_markup=ReplyKeyboardRemove())
 
         await AdminTools.delete_msg(msg)
 
-        resp = ("0", "photo", "fio", "admin", datetime.now(), True)
+        resp = await EditUtils.find_by_id(data.get("uid"))
 
         text = UserLexicon.USER.format(full_name=resp[2],
                                        type=resp[3],
@@ -80,7 +82,7 @@ class EditService:
 
         await state.set_state(UserState.USER)
 
-        resp = True
+        resp = await EditUtils.delete_by_id(data.get("uid"))
 
         if resp:
             await callback.message.answer(text=UserLexicon.DELETE_USER_SUCCESS, reply_markup=EntryMarkup.back_markup)
@@ -94,7 +96,7 @@ class EditService:
 
         await state.set_state(UserState.USER)
 
-        resp = True
+        resp = await EditUtils.edit_name_by_uid(data.get("uid"), message.text)
 
         if resp:
             await message.answer(text=UserLexicon.EDIT_NAME_SUCCESS)
@@ -108,7 +110,7 @@ class EditService:
 
         await state.set_state(UserState.USER)
 
-        resp = True
+        resp = await EditUtils.edit_photo_by_uid(data.get("uid"), message.photo)
 
         if resp:
             await message.answer(text=UserLexicon.EDIT_PHOTO_SUCCESS)
@@ -122,7 +124,7 @@ class EditService:
 
         await state.set_state(UserState.USER)
 
-        resp = True
+        resp = await EditUtils.edit_type_by_uid(data.get("uid"), message.text)
 
         if resp:
             await message.answer(text=UserLexicon.EDIT_TYPE_SUCCESS)
@@ -136,7 +138,7 @@ class EditService:
 
         await state.set_state(UserState.USER)
 
-        resp = True
+        resp = await EditUtils.edit_date_by_uid(data.get("uid"), message.text)
 
         if resp:
             await message.answer(text=UserLexicon.EDIT_DATE_SUCCESS)

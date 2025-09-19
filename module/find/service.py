@@ -1,7 +1,7 @@
-from datetime import datetime
-
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, CallbackQuery
+
+from utils import FindUtils
 
 from tools.admin import AdminTools
 
@@ -30,12 +30,15 @@ class FindService:
     async def find_msg(message: Message, state: FSMContext):
         await state.clear()
 
-        resp = ("0", "photo", "fio", "admin", datetime.now(), True)
+        resp = await FindUtils.find_user(message.text)
 
-        text = UserLexicon.USER.format(full_name=resp[2],
-                                       type=resp[3],
-                                       end_time=resp[4],
-                                       action=UserLexicon.OPEN if resp[5] else UserLexicon.CLOSE)
-        markup = UserMarkup.get_user_markup(is_open=resp[5], uid=resp[0])
+        if resp:
+            text = UserLexicon.USER.format(full_name=resp[2],
+                                           type=resp[3],
+                                           end_time=resp[4],
+                                           action=UserLexicon.OPEN if resp[5] else UserLexicon.CLOSE)
+            markup = UserMarkup.get_user_markup(is_open=resp[5], uid=resp[0])
 
-        await message.answer(text=text, reply_markup=markup)
+            await message.answer(text=text, reply_markup=markup)
+        else:
+            await message.answer(text=UserLexicon.USER_NOT_FOUND, reply_markup=FindMarkup.back_markup)
